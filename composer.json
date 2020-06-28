@@ -1,6 +1,6 @@
 {
     "name": "wr2net/gateway-connect",
-    "description": "A project with common Gateway Implementations",
+    "description": "A project with common gateway implementations for connection with SEAPE (vehicles), Datawash (people), Unicheck (vehicles), ViaCEP (address) and Fusion (sms).",
     "type": "library",
     "license": "LGPL-2.1",
     "version": "1.0",

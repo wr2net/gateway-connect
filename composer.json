@@ -20,5 +20,6 @@
                 "tests"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

@@ -1,0 +1,17 @@
+{
+    "name": "wr2net/gateway-connect",
+    "description": "A project with common Gateway Implementations",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gateway\\": [
+                "src",
+                "tests"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}

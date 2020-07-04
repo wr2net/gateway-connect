@@ -12,7 +12,11 @@ class WebServices
         if($content === FALSE){
             return \json_encode([]);
         }
-        return \json_encode(new \SimpleXMLElement($content));
+        return WebServices::xmlToJson($content);
+    }
+    
+    public static function xmlToJson($xml) : string {
+        return \json_encode(new \SimpleXMLElement($xml));
     }
     
 }

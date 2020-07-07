@@ -103,6 +103,8 @@ Constructor Requirements:
         use Gateway\Gateways\Location\VIACEPGatewayImpl as VIACEP;
         use Gateway\Gateways\SMS\FUSIONGatewayImpl as FUSION;
         use Gateway\Cache\DiskCacheImpl as Cache;
+        use Gateway\Integrations\CARE\CAREClientImpl as CAREClient;
+        use Gateway\Integrations\Models\CARE;
 
 
         $cache = new Cache("vehicles","/tmp/");
@@ -116,6 +118,8 @@ Constructor Requirements:
         $viacep = new VIACEP();
 
         $fusion = new FUSION($cache, $user, $token);
+
+        $care = new CAREClient();
 
 
         // VEHICLE
@@ -131,5 +135,15 @@ Constructor Requirements:
 
         // SEND SMS
         print_r($fusion->fetchSmsSend("NUMBER_PHONE", "MESSAGE", "TYPE"));
+
+        //CARE
+        $associate = new CARE\Associate(1,"TESTE USER","098766543210");
+        $associate->addProduct(new CARE\Product(10, ""));
+        print_r($care->createAssociate($associate));
+        print_r($care->removeAssociateProducts("098766543210",10));
+        print_r($care->getAssociates());
+        print_r($care->getProducts());
+        print_r($care->getAssociateSituation("098766543210", 10));
+        print_r($care->getAssociateProducts("098766543210"));
 
 ```

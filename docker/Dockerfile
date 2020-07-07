@@ -2,7 +2,11 @@ FROM php:fpm-alpine
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache git nginx
+RUN apk add --upgrade --no-cache git nginx libxml2-dev php-soap
+
+# RUN pear install -a SOAP-0.13.0
+RUN docker-php-ext-install soap
+# RUN docker-php-ext-enable soap
 
 RUN curl -s http://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer

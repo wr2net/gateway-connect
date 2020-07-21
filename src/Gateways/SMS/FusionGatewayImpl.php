@@ -1,13 +1,10 @@
 <?php
 declare(strict_types=1);
 
-
 namespace Gateway\Gateways\SMS;
-
 
 use Gateway\Cache\Cache;
 use Gateway\Utils\WebServices as WebServicesUtils;
-
 
 /**
  * Class FusionGatewayImpl
@@ -15,7 +12,6 @@ use Gateway\Utils\WebServices as WebServicesUtils;
  */
 class FusionGatewayImpl implements FUSIONGateway
 {
-
     /**
      * @var string
      */
@@ -96,5 +92,4 @@ class FusionGatewayImpl implements FUSIONGateway
         $this->cacheService->putInKey($number."-fusion",$data);
         return $data;
     }
-
 }

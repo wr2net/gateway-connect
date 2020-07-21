@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Gateway\Gateways\Person;
 
-
 use Gateway\Cache\Cache;
 use Gateway\Utils\WebServices as WebServicesUtils;
-
 
 /**
  * Class DATAWASHGatewayImpl
@@ -76,5 +74,4 @@ class DATAWASHGatewayImpl implements DATAWASHGateway
         $this->cacheService->putInKey($cpf."-datawash",$data);
         return $data;
     }
-
 }

@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Gateway\Gateways\Vehicle;
 
-
 use Gateway\Cache\Cache;
 use Gateway\Utils\WebServices as WebServicesUtils;
-
 
 /**
  * Class UNICHECKGatewayImpl

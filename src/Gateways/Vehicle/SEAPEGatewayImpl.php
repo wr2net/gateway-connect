@@ -6,7 +6,6 @@ namespace Gateway\Gateways\Vehicle;
 use Gateway\Cache\Cache;
 use Gateway\Utils\WebServices as WebServicesUtils;
 
-
 /**
  * Class SEAPEGatewayImpl
  * @package Gateway\Gateways\Vehicle

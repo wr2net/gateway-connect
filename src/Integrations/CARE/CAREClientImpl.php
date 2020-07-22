@@ -6,6 +6,10 @@ namespace Gateway\Integrations\CARE;
 use Gateway\Utils\WebServices as WebServicesUtils;
 use Gateway\Integrations\Models\CARE;
 
+/**
+ * Class CAREClientImpl
+ * @package Gateway\Integrations\CARE
+ */
 class CAREClientImpl implements CAREClient
 {
     /**
@@ -30,10 +34,7 @@ class CAREClientImpl implements CAREClient
      * @param string $password
      * @throws \SoapFault
      */
-    public function __construct(
-        $wsURL = "https://aid.hinova.com.br/aid/ambiente_testes/ws/webservice.php?wsdl",
-        $user = "10816486786",
-        $password = "1")
+    public function __construct(string $wsURL, string $user, string $password)
     {
         $this->client = new \SoapClient($wsURL);
         $this->user = $user;

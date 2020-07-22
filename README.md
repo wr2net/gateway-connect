@@ -1,11 +1,12 @@
 # Gateways
 
-This repository contains a Gateway pattern implemented as a library to be used in the MutualSoft projects.
+This repository contains a Gateway pattern implemented as a library to be used in projects.
 
 Current available Gateways:
  - Vehicle
  - Person
  - Location
+ - SMS
 
 ## Requirements
 - PHP 7.3

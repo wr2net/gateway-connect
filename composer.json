@@ -2,7 +2,7 @@
     "name": "wr2net/gateway-connect",
     "description": "A project with common gateway implementations for connection with SEAPE (vehicles), Datawash (people), Unicheck (vehicles), ViaCEP (address) and Fusion (sms).",
     "type": "library",
-    "license": "LGPL-2.1",
+    "license": "MIT",
     "version": "1.0",
     "authors": [
         {
@@ -15,6 +15,7 @@
         }
     ],
     "require-dev": {
+        "php": "^7.3",
         "phpunit/phpunit": "^8"
     },
     "autoload": {

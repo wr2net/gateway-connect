@@ -33,7 +33,7 @@ class FusionGatewayImpl implements FUSIONGateway
      * @param $user
      * @param $token
      */
-    public function __construct(Cache $cache, $user, $token)
+    public function __construct(Cache $cache, string $user, string $token)
     {
         $this->cacheService = $cache;
         $this->user = $user;
@@ -47,7 +47,7 @@ class FusionGatewayImpl implements FUSIONGateway
      * @param int $type
      * @return mixed
      */
-    public function fetchSmsSend(string $number, string $message, int $type)
+    public function fetchSmsSend(string $number, string $message, int $type): string
     {
         return $this->getInfoFromFusionWebService($number, $message, $type);
     }
@@ -90,6 +90,6 @@ class FusionGatewayImpl implements FUSIONGateway
         $data = json_decode($dados);
 
         $this->cacheService->putInKey($number."-fusion",$data);
-        return $data;
+        return WebServicesUtils::webServicesToJson($data);
     }
 }

@@ -83,6 +83,5 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
         $this->cacheService->putInKey($plate."-unicheck",$output);
         return $output;
     }
-
 }
 

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Integrations\Models\CARE;
 
@@ -21,10 +20,10 @@ class Product {
 
     /**
      * Product constructor.
-     * @param int $productCode
-     * @param string $name
+     * @param $productCode
+     * @param $name
      */
-    public function __construct(int $productCode,string $name) {
+    public function __construct($productCode, $name) {
         $this->productCode = $productCode;
         $this->name = $name;
     }
@@ -32,7 +31,7 @@ class Product {
     /**
      * @return int
      */
-    public function getCode() : int 
+    public function getCode()
     {
         return $this->productCode;
     }

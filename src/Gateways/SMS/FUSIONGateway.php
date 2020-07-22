@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\SMS;
 
@@ -15,5 +14,5 @@ interface FUSIONGateway
      * @param int $type
      * @return string
      */
-    public function fetchSmsSend(string $number, string $message, int $type) : string;
+    public function fetchSmsSend($number, $message, $type);
 }

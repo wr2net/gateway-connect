@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Integrations\Models\CARE;
 
@@ -31,11 +30,12 @@ class Associate
 
     /**
      * Associate constructor.
-     * @param int $id
-     * @param string $name
-     * @param string $cpf
+     * @param $id
+     * @param $name
+     * @param $cpf
      */
-    public function __construct(int $id, string $name,string $cpf) {
+    public function __construct($id, $name, $cpf)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->cpf = $cpf;
@@ -45,7 +45,7 @@ class Associate
     /**
      * @return int
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
     }
@@ -53,7 +53,7 @@ class Associate
     /**
      * @return string
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -61,7 +61,7 @@ class Associate
     /**
      * @return string
      */
-    public function getCPF() : string
+    public function getCPF()
     {
         return $this->cpf;
     }
@@ -69,7 +69,7 @@ class Associate
     /**
      * @return \ArrayObject
      */
-    public function getProducts() : \ArrayObject 
+    public function getProducts()
     {
         return $this->products;
     }

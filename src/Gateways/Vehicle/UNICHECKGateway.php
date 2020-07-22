@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Vehicle;
 
@@ -13,6 +12,6 @@ interface UNICHECKGateway
      * @param string $plate
      * @return string
      */
-    public function fetchVehicleInformation(string $plate) : string;
+    public function fetchVehicleInformation($plate);
 }
   

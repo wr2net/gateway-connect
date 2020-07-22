@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Vehicle;
 
@@ -55,9 +54,9 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
      * @param string $plate
      * @return string
      */
-    public function fetchVehicleInformation(string $plate) : string
+    public function fetchVehicleInformation($plate)
     {   
-        $unicheckInfo = $this->cacheService->hasKey($plate."-unicheck") ? $this->cacheService->get($plate."-unicheck") : $this->getInfoFromUNICHECKWebService($plate);
+        $unicheckInfo = $this->cacheService->hasKey($plate . "-unicheck") ? $this->cacheService->get($plate . "-unicheck") : $this->getInfoFromUNICHECKWebService($plate);
         return $unicheckInfo;
     }
 
@@ -65,7 +64,8 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
      * @param string $plate
      * @return string
      */
-    private function getInfoFromUNICHECKWebService(string $plate) : string {
+    private function getInfoFromUNICHECKWebService($plate)
+    {
      
         $uri = sprintf(self::UNICHECK_ENDPOINT,$plate);
         
@@ -74,13 +74,13 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($ch,CURLOPT_TIMEOUT, 30); 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Authorization: Basic ".$this->auth
+            "Authorization: Basic " . $this->auth
         ));
  
         $output=curl_exec($ch);
         curl_close($ch);
 
-        $this->cacheService->putInKey($plate."-unicheck",$output);
+        $this->cacheService->putInKey($plate . "-unicheck",$output);
         return $output;
     }
 }

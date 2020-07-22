@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Utils;
 
@@ -10,24 +9,25 @@ namespace Gateway\Utils;
 class WebServices
 {
     /**
-     * @param string $uri
+     * @param $uri
      * @param null $ctx
-     * @return string
+     * @return false|string
      */
-    public static function webServicesToJson(string $uri, $ctx=null) : string {
+    public static function webServicesToJson($uri, $ctx = null)
+    {
         $content = \file_get_contents($uri,false, $ctx);
         if ($content === FALSE) {
-            return \json_encode([]);
+            return null;
         }
         return WebServices::xmlToJson($content);
     }
 
     /**
      * @param $xml
-     * @return string
-     */
-    public static function xmlToJson($xml) : string {
-        return \json_encode(new \SimpleXMLElement($xml));
+     * @return false|string     */
+    public static function xmlToJson($xml)
+    {
+        return json_encode(simplexml_load_string($xml));
     }
     
 }

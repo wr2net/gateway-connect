@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Integrations\CARE;
 
@@ -13,37 +12,37 @@ interface CAREClient
 {
     /**
      * @param CARE\Associate $associate
-     * @return string
+     * @return mixed
      */
-    public function createAssociate(CARE\Associate $associate): string;
+    public function createAssociate(CARE\Associate $associate);
 
     /**
      * @param string $cpf
      * @param int $productCode
      * @return string
      */
-    public function removeAssociateProducts(string $cpf,int $productCode): string;
+    public function removeAssociateProducts($cpf, $productCode);
 
     /**
      * @return string
      */
-    public function getAssociates(): string;
+    public function getAssociates();
 
     /**
      * @return string
      */
-    public function getProducts(): string;
+    public function getProducts();
 
     /**
      * @param string $cpf
      * @param int $productCode
      * @return string
      */
-    public function getAssociateSituation(string $cpf, int $productCode): string;
+    public function getAssociateSituation($cpf, $productCode);
 
     /**
      * @param $cpf
      * @return string
      */
-    public function getAssociateProducts($cpf): string;
+    public function getAssociateProducts($cpf);
 }

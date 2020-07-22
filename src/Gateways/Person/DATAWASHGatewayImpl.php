@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Person;
 
@@ -38,6 +37,11 @@ class DATAWASHGatewayImpl implements DATAWASHGateway
     private $cacheService;
 
     /**
+     * @var string
+     */
+    private $auth_param;
+
+    /**
      * DATAWASHGatewayImpl constructor.
      * @param Cache $cache
      * @param $client
@@ -50,28 +54,28 @@ class DATAWASHGatewayImpl implements DATAWASHGateway
         $this->client = $client;
         $this->user = $user;
         $this->passwd = $auth;
-        define('AUTH_PARAM', "&Cliente={$this->client}&Usuario={$this->user}&Senha={$this->passwd}");
+        $this->auth_param = "&Cliente={$this->client}&Usuario={$this->user}&Senha={$this->passwd}";
     }
 
     /**
      * @param string $cpf
-     * @return string
+     * @return mixed|string
      */
-    public function fetchPersonInformation(string $cpf): string
+    public function fetchPersonInformation($cpf)
     {   
-        $datawashInfo = $this->cacheService->hasKey($cpf."-datawash") ? $this->cacheService->get($cpf."-datawash") : $this->getInfoFromDATAWASHWebService($cpf);
+        $datawashInfo = $this->cacheService->hasKey($cpf . "-datawash") ? $this->cacheService->get($cpf . "-datawash") : $this->getInfoFromDATAWASHWebService($cpf);
         return $datawashInfo;
     }
 
     /**
-     * @param string $cpf
-     * @return string
+     * @param $cpf
+     * @return mixed
      */
-    private function getInfoFromDATAWASHWebService(string $cpf)
+    private function getInfoFromDATAWASHWebService($cpf)
     {
-        $uri = sprintf(self::DATAWASH_ENDPOINT.AUTH_PARAM,$cpf);
+        $uri = sprintf(self::DATAWASH_ENDPOINT . $this->auth_param,$cpf);
         $data = WebServicesUtils::webServicesToJson($uri);
-        $this->cacheService->putInKey($cpf."-datawash",$data);
+        $this->cacheService->putInKey($cpf . "-datawash", $data);
         return $data;
     }
 }

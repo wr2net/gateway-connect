@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Vehicle;
 
@@ -13,11 +12,11 @@ interface SEAPEGateway
      * @param string $plate
      * @return string
      */
-    public function fetchVehicleRegisterByPlate(string $plate) : string;
+    public function fetchVehicleRegisterByPlate($plate);
 
     /**
      * @param string $chassis
      * @return string
      */
-    public function fetchVehicleDecoderWithChassis(string $chassis) : string;
+    public function fetchVehicleDecoderWithChassis($chassis);
 }

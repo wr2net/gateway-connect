@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Integrations\CARE;
 
@@ -34,7 +33,7 @@ class CAREClientImpl implements CAREClient
      * @param string $password
      * @throws \SoapFault
      */
-    public function __construct(string $wsURL, string $user, string $password)
+    public function __construct($wsURL, $user, $password)
     {
         $this->client = new \SoapClient($wsURL);
         $this->user = $user;
@@ -45,7 +44,7 @@ class CAREClientImpl implements CAREClient
      * @param CARE\Associate $associate
      * @return string
      */
-    public function createAssociate(CARE\Associate $associate): string
+    public function createAssociate(CARE\Associate $associate)
     {
         $root = new \SimpleXMLElement('<?xml version="1.0" encoding="ISO-8859-1"?><xml></xml>');
         $dadosAssociado = $root->addChild("item")->addChild("dadosAssociado");

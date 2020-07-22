@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Vehicle;
 
@@ -48,6 +47,11 @@ class SEAPEGatewayImpl implements SEAPEGateway
     private $cacheService;
 
     /**
+     * @var string
+     */
+    private $auth_param;
+
+    /**
      * SEAPEGatewayImpl constructor.
      * @param Cache $cache
      * @param $key
@@ -60,48 +64,50 @@ class SEAPEGatewayImpl implements SEAPEGateway
         $this->key = $key;
         $this->user = $user;
         $this->passwd = $auth;
-        define(AUTH_PARAM, "&ChaveAcesso={$this->key}&Usuario={$this->user}&Senha={$this->passwd}");
+        $this->auth_param = "&ChaveAcesso={$this->key}&Usuario={$this->user}&Senha={$this->passwd}";
     }
 
     /**
      * @param string $plate
-     * @return string
+     * @return mixed|string
      */
-    public function fetchVehicleRegisterByPlate(string $plate) : string
+    public function fetchVehicleRegisterByPlate($plate)
     {   
-        $seapeInfo = $this->cacheService->hasKey($plate."-seape-428") ? $this->cacheService->get($plate."-seape-428") : $this->getPlateInfoFromSEAPEWebService($plate);
+        $seapeInfo = $this->cacheService->hasKey($plate . "-seape-428") ? $this->cacheService->get($plate . "-seape-428") : $this->getPlateInfoFromSEAPEWebService($plate);
         return $seapeInfo;
     }
 
     /**
      * @param string $chassis
-     * @return string
+     * @return mixed|string
      */
-    public function fetchVehicleDecoderWithChassis(string $chassis) : string
+    public function fetchVehicleDecoderWithChassis($chassis)
     {   
-        $seapeInfo = $this->cacheService->hasKey($plate."-seape-505") ? $this->cacheService->get($plate."-seape-505") : $this->getChassisInfoFromSEAPEWebService($chassis);
+        $seapeInfo = $this->cacheService->hasKey($chassis . "-seape-505") ? $this->cacheService->get($chassis . "-seape-505") : $this->getChassisInfoFromSEAPEWebService($chassis);
         return $seapeInfo;
     }
 
     /**
-     * @param string $plate
-     * @return string
+     * @param $plate
+     * @return mixed
      */
-    private function getPlateInfoFromSEAPEWebService(string $plate) : string  {
-        $uri = sprintf(self::SEAPE_ENDPOINT.$this->vehicleRegisterQuery.AUTH_PARAM,$plate);
+    private function getPlateInfoFromSEAPEWebService($plate)
+    {
+        $uri = sprintf(self::SEAPE_ENDPOINT . $this->vehicleRegisterQuery . $this->auth_param,$plate);
         $data = WebServicesUtils::webServicesToJson($uri);
-        $this->cacheService->putInKey($plate."-seape-428",$data);
+        $this->cacheService->putInKey($plate . "-seape-428",$data);
         return $data;
     }
 
     /**
-     * @param string $chassis
-     * @return string
+     * @param $chassis
+     * @return mixed
      */
-    private function getChassisInfoFromSEAPEWebService(string $chassis) : string  {
-        $uri = sprintf(self::SEAPE_ENDPOINT.$this->precifierAndDecoderQuery.AUTH_PARAM,$chassis);
+    private function getChassisInfoFromSEAPEWebService($chassis)
+    {
+        $uri = sprintf(self::SEAPE_ENDPOINT . $this->precifierAndDecoderQuery . $this->auth_param,$chassis);
         $data = WebServicesUtils::webServicesToJson($uri);
-        $this->cacheService->putInKey($chassis."-seape-505",$data);
+        $this->cacheService->putInKey($chassis . "-seape-505",$data);
         return $data;
     }
 }

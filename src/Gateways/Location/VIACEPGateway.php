@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\Location;
 
@@ -13,5 +12,5 @@ interface VIACEPGateway
      * @param string $cep
      * @return string
      */
-    public function fetchLocation(string $cep) : string;
+    public function fetchLocation($cep);
 }

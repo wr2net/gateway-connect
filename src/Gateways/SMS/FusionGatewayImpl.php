@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Gateway\Gateways\SMS;
 
@@ -28,37 +27,42 @@ class FusionGatewayImpl implements FUSIONGateway
     private $cacheService;
 
     /**
+     * @var string
+     */
+    private $fusion_endpoint;
+
+    /**
      * FusionGatewayImpl constructor.
      * @param Cache $cache
      * @param $user
      * @param $token
      */
-    public function __construct(Cache $cache, string $user, string $token)
+    public function __construct(Cache $cache, $user, $token)
     {
         $this->cacheService = $cache;
         $this->user = $user;
         $this->token = $token;
-        define(FUSION_ENDPOINT, "http://swagger.focustel.com.br/api/sms/send?token=" . $this->token);
+        $this->fusion_endpoint = "http://swagger.focustel.com.br/api/sms/send?token=" . $this->token;
     }
 
     /**
      * @param string $number
      * @param string $message
      * @param int $type
-     * @return mixed
+     * @return mixed|string
      */
-    public function fetchSmsSend(string $number, string $message, int $type): string
+    public function fetchSmsSend($number, $message, $type)
     {
         return $this->getInfoFromFusionWebService($number, $message, $type);
     }
 
     /**
-     * @param string $number
-     * @param string $message
-     * @param int $type
-     * @return mixed
+     * @param $number
+     * @param $message
+     * @param $type
+     * @return bool|string
      */
-    private function getInfoFromFusionWebService(string $number, string $message, int $type)
+    private function getInfoFromFusionWebService($number, $message, $type)
     {
 
         $toSend = [
@@ -77,7 +81,7 @@ class FusionGatewayImpl implements FUSIONGateway
         $values = json_encode($envio);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, FUSION_ENDPOINT);
+        curl_setopt($ch, CURLOPT_URL, $this->fusion_endpoint);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 60);
@@ -87,9 +91,8 @@ class FusionGatewayImpl implements FUSIONGateway
         );
         $dados = curl_exec($ch);
         curl_close($ch);
-        $data = json_decode($dados);
 
-        $this->cacheService->putInKey($number."-fusion",$data);
-        return WebServicesUtils::webServicesToJson($data);
+        $this->cacheService->putInKey($number . "-fusion", $dados);
+        return $dados;
     }
 }

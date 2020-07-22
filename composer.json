@@ -3,7 +3,7 @@
     "description": "A project with common gateway implementations for connection with SEAPE (vehicles), Datawash (people), Unicheck (vehicles), ViaCEP (address) and Fusion (sms).",
     "type": "library",
     "license": "MIT",
-    "version": "1.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Lucas Medeiros",

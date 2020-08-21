@@ -53,14 +53,13 @@ class SEAPEGatewayImpl implements SEAPEGateway
 
     /**
      * SEAPEGatewayImpl constructor.
-     * @param Cache $cache
      * @param $key
      * @param $user
      * @param $auth
      */
-    public function __construct(Cache $cache, $key, $user, $auth)
+    public function __construct($key, $user, $auth)
     {
-        $this->cacheService = $cache;
+        $this->cacheService = Cache::class("gateway", "/tmp/");;
         $this->key = $key;
         $this->user = $user;
         $this->passwd = $auth;

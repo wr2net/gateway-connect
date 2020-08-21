@@ -38,13 +38,12 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
 
     /**
      * UNICHECKGatewayImpl constructor.
-     * @param Cache $cache
      * @param $user
      * @param $auth
      */
-    public function __construct(Cache $cache, $user, $auth)
+    public function __construct($user, $auth)
     {
-        $this->cacheService = $cache;
+        $this->cacheService = Cache::class("gateway", "/tmp/");
         $this->user = $user;
         $this->passwd = $auth;
         $this->auth = \base64_encode($this->user. ':'. $this->passwd);

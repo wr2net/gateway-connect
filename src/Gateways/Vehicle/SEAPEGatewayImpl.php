@@ -2,7 +2,7 @@
 
 namespace Gateway\Gateways\Vehicle;
 
-use Gateway\Cache\Cache;
+use Gateway\Cache\DiskCacheImpl;
 use Gateway\Utils\WebServices as WebServicesUtils;
 
 /**
@@ -59,7 +59,7 @@ class SEAPEGatewayImpl implements SEAPEGateway
      */
     public function __construct($key, $user, $auth)
     {
-        $this->cacheService = Cache::class("gateway", "/tmp/");;
+        $this->cacheService = new DiskCacheImpl("gateway", "/tmp/");;
         $this->key = $key;
         $this->user = $user;
         $this->passwd = $auth;

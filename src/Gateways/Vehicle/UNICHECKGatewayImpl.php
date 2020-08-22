@@ -3,7 +3,7 @@
 namespace Gateway\Gateways\Vehicle;
 
 use Gateway\Cache\Cache;
-use Gateway\Utils\WebServices as WebServicesUtils;
+use Gateway\Cache\DiskCacheImpl;
 
 /**
  * Class UNICHECKGatewayImpl
@@ -24,7 +24,7 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
     /**
      * @var string
      */
-    private CONST UNICHECK_ENDPOINT = "http://ws.unicheck.com.br/unicheck-api/veiculo/agregados/%s";
+    CONST UNICHECK_ENDPOINT = "http://ws.unicheck.com.br/unicheck-api/veiculo/agregados/%s";
 
     /**
      * @var string
@@ -43,7 +43,7 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
      */
     public function __construct($user, $auth)
     {
-        $this->cacheService = Cache::class("gateway", "/tmp/");
+        $this->cacheService = new DiskCacheImpl("gateway", "/tmp/");;
         $this->user = $user;
         $this->passwd = $auth;
         $this->auth = \base64_encode($this->user. ':'. $this->passwd);

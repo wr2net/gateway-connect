@@ -3,6 +3,7 @@
 namespace Gateway\Gateways\Person;
 
 use Gateway\Cache\Cache;
+use Gateway\Cache\DiskCacheImpl;
 use Gateway\Utils\WebServices as WebServicesUtils;
 
 /**
@@ -43,14 +44,13 @@ class DATAWASHGatewayImpl implements DATAWASHGateway
 
     /**
      * DATAWASHGatewayImpl constructor.
-     * @param Cache $cache
      * @param $client
      * @param $user
      * @param $auth
      */
-    public function __construct(Cache $cache, $client, $user, $auth )
+    public function __construct($client, $user, $auth )
     {
-        $this->cacheService = $cache;
+        $this->cacheService = new DiskCacheImpl("gateway", "/tmp/");;
         $this->client = $client;
         $this->user = $user;
         $this->passwd = $auth;

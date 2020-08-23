@@ -43,7 +43,7 @@ class UNICHECKGatewayImpl implements UNICHECKGateway
      */
     public function __construct($user, $auth)
     {
-        $this->cacheService = new DiskCacheImpl("gateway", "/tmp/");;
+        $this->cacheService = new DiskCacheImpl("gateway", "/tmp/");
         $this->user = $user;
         $this->passwd = $auth;
         $this->auth = \base64_encode($this->user. ':'. $this->passwd);

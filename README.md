@@ -103,22 +103,18 @@ Constructor Requirements:
         use Gateway\Gateways\Person\DATAWASHGatewayImpl as DATAWASH;
         use Gateway\Gateways\Location\VIACEPGatewayImpl as VIACEP;
         use Gateway\Gateways\SMS\FUSIONGatewayImpl as FUSION;
-        use Gateway\Cache\DiskCacheImpl as Cache;
         use Gateway\Integrations\CARE\CAREClientImpl as CAREClient;
         use Gateway\Integrations\Models\CARE;
 
+        $seape = new SEAPE($key, $user, $auth);
 
-        $cache = new Cache("vehicles","/tmp/");
+        $unicheck = new UNICHECK($user, $auth);
 
-        $seape = new SEAPE($cache, $key, $user, $auth);
-
-        $unicheck = new UNICHECK($cache, $user, $auth);
-
-        $datawash = new DATAWASH($cache, $client, $user, $auth);
+        $datawash = new DATAWASH($client, $user, $auth);
 
         $viacep = new VIACEP();
 
-        $fusion = new FUSION($cache, $user, $token);
+        $fusion = new FUSION($user, $token);
 
         $care = new CAREClient();
 

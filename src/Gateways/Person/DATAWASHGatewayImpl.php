@@ -63,8 +63,7 @@ class DATAWASHGatewayImpl implements DATAWASHGateway
      */
     public function fetchPersonInformation($cpf)
     {   
-        $datawashInfo = $this->cacheService->hasKey($cpf . "-datawash") ? $this->cacheService->get($cpf . "-datawash") : $this->getInfoFromDATAWASHWebService($cpf);
-        return $datawashInfo;
+        return $this->getInfoFromDATAWASHWebService($cpf);
     }
 
     /**

@@ -19,7 +19,14 @@ class VIACEPGatewayImpl implements VIACEPGateway
      * @return string
      */
     public function fetchLocation($cep)
-    {   
+    {
+        if (strlen($cep) != 8) {
+            $error = [
+                "message" => "O CEP informado não é válido.",
+                "cep" => $cep
+            ];
+            return json_encode($error);
+        }
         $uri = sprintf(self::VIACEP_ENDPOINT,$cep);
         
         $ch = curl_init();  

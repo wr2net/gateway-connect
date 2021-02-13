@@ -20,9 +20,6 @@ class VIACEPGatewayImpl implements VIACEPGateway
      */
     public function fetchLocation($cep)
     {
-        if (strlen($cep) != 8) {
-            return null;
-        }
         $uri = sprintf(self::VIACEP_ENDPOINT,$cep);
         
         $ch = curl_init();  
@@ -30,9 +27,19 @@ class VIACEPGatewayImpl implements VIACEPGateway
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($ch,CURLOPT_TIMEOUT, 30); 
  
-        $output=curl_exec($ch);
+        $output = curl_exec($ch);
+        $toError = json_decode(curl_exec($ch));
+        $info = curl_getinfo($ch);
         curl_close($ch);
-        
+
+        if ($info['http_code'] != 200 || $toError->erro) {
+            $error =  [
+                "code" => $info['http_code'],
+                "message" => "Zip code reported nonstandard or incorrect.",
+                "cep" => $cep
+            ];
+            return json_encode($error);
+        }
         return $output;
     }
 }

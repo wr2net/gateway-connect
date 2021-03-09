@@ -32,14 +32,17 @@ class VIACEPGatewayImpl implements VIACEPGateway
         $info = curl_getinfo($ch);
         curl_close($ch);
 
-        if ($info['http_code'] != 200 || $toError->erro) {
-            $error =  [
-                "code" => $info['http_code'],
-                "message" => "Zip code reported nonstandard or incorrect.",
-                "cep" => $cep
-            ];
-            return json_encode($error);
+        if ($info['http_code'] == 200) {
+            $output = json_decode($output);
+            $output->error = false;
+            return json_encode($output);
         }
-        return $output;
+
+        $error =  [
+            "error" => true,
+            "code" => $info['http_code'],
+            "message" => "Zip code reported nonstandard or incorrect."
+        ];
+        return json_encode($error);
     }
 }
